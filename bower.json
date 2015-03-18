@@ -1,10 +1,10 @@
 {
-    "name": "Project Stub",
+    "name": "Simple BEM Project Stub",
     "version": "0.0.1",
     "authors": [
         "andychups <andychups@ya.ru>"
     ],
-    "description": "Solus front-end",
+    "description": "Simple BEM Project Stub",
     "license": "MIT",
     "private": true,
     "dependencies": {
