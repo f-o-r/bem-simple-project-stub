@@ -1,0 +1,56 @@
+@font-face {
+    font-family: font-main;
+    src: url('/templates/solus/html/static/fonts/solus.eot');
+    src: url('/templates/solus/html/static/fonts/solus.eot?#iefix') format('embedded-opentype'), url('/templates/solus/html/static/fonts/solus.woff') format('woff'), url('/templates/solus/html/static/fonts/solus.ttf') format('truetype'), url('/templates/solus/html/static/fonts/solus.svg#webfont') format('svg');
+}
+
+html {
+    overflow-y scroll
+    height 100%
+    padding 0
+    margin 0
+}
+
+body {
+    min-height 100%
+    height auto
+    padding 0
+    margin 0
+    font: normal 16px / 1.4 font-main, font-alternate, 'sans-serif';
+    background: color-white;
+    color: color-black;
+}
+
+
+a {
+    color: color-purple;
+    text-decoration: none;
+}
+
+input, select, textarea {
+    font: normal 16px font-main, font-alternate, 'sans-serif';
+}
+
+hr {
+    height: 1px;
+    border-width: 0;
+    background: color-light-grey;
+    color: color-light-grey;
+}
+
+::-moz-selection {
+    background: color-purple;
+    color: color-white;
+    text-shadow: none;
+}
+
+::selection {
+    background: color-purple;
+    color: color-white;
+    text-shadow: none;
+}
+
+.b-page {
+    position relative
+    min-width 1000px
+}

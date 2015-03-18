@@ -1,0 +1,18 @@
+{
+    "name": "ProjectStub",
+    "version": "0.0.1",
+    "description": "Project Stub",
+    "main": "/",
+    "dependencies": {
+        "bower": "1.3.5",
+        "enb": "0.13.5",
+        "stylus": "0.37.0",
+        "enb-stylus": "1.1.5",
+        "nib": "1.0.4"
+    },
+    "scripts": {
+        "test": "make test"
+    },
+    "author": "andychups",
+    "license": "BSD-2-Clause"
+}
