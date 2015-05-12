@@ -13,7 +13,6 @@
         "underscore": "1.6.0",
         "history.js": "1.8.0",
         "jquery-validation": "1.13.1",
-        "bem-bl": "https://github.com/bem/bem-bl.git#2.3.2",
         "bem-core": "https://github.com/bem/bem-core.git#v2.5.1",
         "modules": "https://github.com/ymaps/modules.git"
     }
