@@ -2,6 +2,6 @@
 node_modules
 .DS_Store
 .enb/tmp
-libs
+/libs
 desktop.bundles/**/*.*
 !desktop.bundles/**/*.bemdecl.js
