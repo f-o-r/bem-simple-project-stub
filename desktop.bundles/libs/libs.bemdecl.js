@@ -1,5 +1,5 @@
 exports.deps = [
-    { "block": "global" },
-    { "block": "backbone" },
-    { "block": "modules" }
+    { block : 'global' },
+    { block : 'modules' },
+    { block : 'backbone' }
 ];

@@ -1,4 +1,4 @@
-modules.define('backbone', ['underscore'], function (provide, _) {
+modules.define('Backbone', ['underscore'], function (provide, _) {
     var ctx = {
         '_': _,
         '$': jQuery

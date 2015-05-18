@@ -1,4 +1,3 @@
-# bem-simple-project-stub
-BEM Simple Project Stub
+# hotfix-client
 
-Project stub
+Super startup

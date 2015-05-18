@@ -1,7 +1,14 @@
 @font-face {
-    font-family: font-main;
-    src: url('/templates/solus/html/static/fonts/solus.eot');
-    src: url('/templates/solus/html/static/fonts/solus.eot?#iefix') format('embedded-opentype'), url('/templates/solus/html/static/fonts/solus.woff') format('woff'), url('/templates/solus/html/static/fonts/solus.ttf') format('truetype'), url('/templates/solus/html/static/fonts/solus.svg#webfont') format('svg');
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://fonts.gstatic.com/s/opensans/v10/RjgO7rYTmqiVp7vzi-Q5USZ2oysoEQEeKwjgmXLRnTc.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url(http://fonts.gstatic.com/s/opensans/v10/EInbV5DfGHOiMmvb1Xr-hndckgy16U_L-eNUgMz0EAk.ttf) format('truetype');
 }
 
 html {
@@ -48,9 +55,4 @@ hr {
     background: color-purple;
     color: color-white;
     text-shadow: none;
-}
-
-.b-page {
-    position relative
-    min-width 1000px
 }

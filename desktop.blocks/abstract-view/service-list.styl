@@ -1,0 +1,30 @@
+.service-list {
+    margin 0
+    padding 0 10px
+    cursor default
+    text-align center
+
+    &__item {
+        display inline-block
+        border-bottom 1px dotted
+        font-size 23px
+        padding-bottom 4px
+        margin-right 10px
+        color color-black
+        cursor pointer
+
+        &:hover {
+            color color-lime
+        }
+
+        &_state_active {
+            color color-green
+            border 0
+            cursor default
+
+            &:hover {
+                color color-green
+            }
+        }
+    }
+}
