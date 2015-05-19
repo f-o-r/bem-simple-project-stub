@@ -1,11 +1,10 @@
-modules.define('service-list', ['i-bem__dom', 'app'], function (provide, BEMDOM, app) {
+modules.define('abstract-view', ['i-bem__dom', 'app'], function (provide, BEMDOM, app) {
     provide(BEMDOM.decl(this.name,
         {
             onSetMod: {
                 'js': {
                     'inited': function () {
-                        this.offsetTop = this.domElem.offset().top;
-                        this.collection = app.getData('serviceList');
+                        this.collection = app.getData('abstractCollection');
                         this.listeners();
                         this.render();
                     }
@@ -20,10 +19,6 @@ modules.define('service-list', ['i-bem__dom', 'app'], function (provide, BEMDOM,
                 this.collection.forEach(function (item) {
                     console.log(item);
                 });
-            },
-
-            getOffsetTop: function () {
-                return this.domElem.offset().top;
             }
         }));
 });
