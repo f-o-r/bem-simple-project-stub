@@ -1,3 +1,3 @@
-# hotfix-client
+# BEM Simple Project Stub
 
-Super startup
+Супер-лайт Project Stub
