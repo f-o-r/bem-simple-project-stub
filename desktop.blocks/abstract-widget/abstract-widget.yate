@@ -1,0 +1,8 @@
+module "abstract-widget"
+
+match .* abstract-widget {
+    <div class="abstract-widget">
+        <div class="abstract-widget__title">abstract-widget</div>
+        apply . list
+    </div>
+}

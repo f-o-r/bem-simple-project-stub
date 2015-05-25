@@ -1,0 +1,7 @@
+module "list"
+
+match .* list {
+    <ul>
+        apply .* list__item
+    </ul>
+}

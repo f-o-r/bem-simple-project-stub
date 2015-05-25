@@ -1,0 +1,7 @@
+module "button"
+
+match .* button {
+    <button class="button">
+        Кнопка
+    </button>
+}
