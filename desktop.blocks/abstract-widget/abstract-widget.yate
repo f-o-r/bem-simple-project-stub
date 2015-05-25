@@ -2,7 +2,11 @@ module "abstract-widget"
 
 match .* abstract-widget {
     <div class="abstract-widget">
-        <div class="abstract-widget__title">abstract-widget</div>
-        apply . list
+        apply . abstract-widget__inner
     </div>
+}
+
+match .* abstract-widget__inner {
+    <div class="abstract-widget__title">abstract-widget</div>
+    apply . list
 }
