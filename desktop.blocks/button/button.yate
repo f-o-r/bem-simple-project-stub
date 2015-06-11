@@ -1,7 +1,8 @@
 module "button"
 
 match .* button {
-    <button class="button">
-        Кнопка
+    <button class="button" data-type="{ .type }">
+        @class += ' { .mix }'
+        i18n(.label)
     </button>
 }

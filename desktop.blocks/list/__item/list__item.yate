@@ -2,6 +2,6 @@ module "list__item"
 
 match .* list__item {
     <li>
-        { . }
+        .
     </li>
 }

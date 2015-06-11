@@ -8,7 +8,8 @@
         "enb": "0.13.5",
         "stylus": "0.37.0",
         "enb-stylus": "1.1.5",
-        "nib": "1.0.4"
+        "nib": "1.0.4",
+        "yate": "0.0.76"
     },
     "scripts": {
         "test": "make test"

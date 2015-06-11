@@ -16,9 +16,9 @@ modules.define('abstract-view', ['i-bem__dom', 'app'], function (provide, BEMDOM
             },
 
             render: function () {
-                this.collection.forEach(function (item) {
-                    console.log(item);
-                });
+//                this.collection.forEach(function (item) {
+//                    console.log(item);
+//                });
             }
         }));
 });

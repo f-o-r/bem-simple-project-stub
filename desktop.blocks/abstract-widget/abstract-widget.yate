@@ -7,6 +7,46 @@ match .* abstract-widget {
 }
 
 match .* abstract-widget__inner {
-    <div class="abstract-widget__title">abstract-widget</div>
-    apply . list
+    apply .title abstract-widget__title
+    apply .list list
+
+    <p>Какую часть перерисовать?</p>
+
+    apply {
+            'label': 'abstract-widget'
+            'type': 'abstract-widget'
+            'mix': 'abstract-widget__button'
+    } button
+
+    apply {
+            'label': 'abstract-widget__inner'
+            'type': 'abstract-widget__inner'
+            'mix': 'abstract-widget__button'
+    } button
+
+    apply {
+            'label': 'abstract-widget__title'
+            'type': 'abstract-widget__title'
+            'mix': 'abstract-widget__button'
+    } button
+
+    apply {
+            'label': 'list'
+            'type': 'list'
+            'mix': 'abstract-widget__button'
+    } button
+
+    apply {
+        'label': 'list__item'
+        'type': 'list__item'
+        'mix': 'abstract-widget__button'
+    } button
+
+    <pre class="abstract-widget__code">
+        "Пример кода будеть здесь"
+    </pre>
+}
+
+match .* abstract-widget__title {
+    <div class="abstract-widget__title">{ i18n(.) }</div>
 }

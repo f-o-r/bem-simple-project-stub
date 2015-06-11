@@ -1,5 +1,6 @@
 ({
     shouldDeps : [
-        { block : 'list' }
+        { block : 'list' },
+        { block : 'button' }
     ]
 })

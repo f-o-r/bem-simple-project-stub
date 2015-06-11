@@ -9,6 +9,7 @@ module.exports = function(config) {
             new (require('enb/techs/deps-old'))(),
             new (require('enb/techs/files'))(),
             new (require('enb/techs/js'))(),
+            new (require('./techs/yate.js'))(),
             new (require('enb/techs/vanilla-js'))(),
             new (require('enb-stylus/techs/css-stylus-with-nib'))({
                 'target': '?.css',
@@ -16,11 +17,11 @@ module.exports = function(config) {
                     'datauri': require('stylus').url()
                 }
             }),
-            new (require('enb/techs/file-merge'))({ sources: [ '?.vanilla.js', '?.js' ], target: '?.merge.js' })
+            new (require('enb/techs/file-merge'))({ sources: [ '?.vanilla.js', '?.js', '?.yate.js' ], target: '?.merge.js' })
         ]);
 
         nodeConfig.addTargets([
-            '?.vanilla.js', '?.js', '?.merge.js', '_?.js', '?.css', '_?.css'
+            '?.vanilla.js', '?.js', '?.merge.js', '_?.js', '?.css', '_?.css', '?.yate.js'
         ]);
     });
 
