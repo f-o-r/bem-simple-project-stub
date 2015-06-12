@@ -5,6 +5,7 @@ modules.define('abstract-widget', ['i-bem__dom', 'app', 'yate'], function (provi
                 'js': {
                     'inited': function () {
                         var rand = Math.round(Math.random() * 100);
+                        var block = this;
 
                         this.titleData = 'Заголовок '+rand;
                         this.listData = {'title': 'List '+rand, 'elements': [1+rand, 2+rand, 3+rand, 4+rand, 5+rand]};
@@ -13,7 +14,10 @@ modules.define('abstract-widget', ['i-bem__dom', 'app', 'yate'], function (provi
                         this.collection = app.getData('abstractCollection');
 
                         this.listeners();
-                        this.drawContent();
+
+                        setTimeout(function () {
+                            block.drawContent();
+                        }, 2000);
                     }
                 }
             },
@@ -22,12 +26,14 @@ modules.define('abstract-widget', ['i-bem__dom', 'app', 'yate'], function (provi
                 this.collection.on('change', this.render);
             },
 
-            domListeners: function () {
-                this.codeElem = this.findElem('code');
-            },
-
             drawContent: function () {
+                var block = this;
+
+                this.setMod('content', 'hide');
                 BEMDOM.update(this.domElem, this.renderContent());
+                setTimeout(function () {
+                    block.delMod('content');
+                }, 100);
             },
 
             render: function () {

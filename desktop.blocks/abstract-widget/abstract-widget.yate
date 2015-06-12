@@ -7,54 +7,56 @@ match .* abstract-widget {
 }
 
 match .* abstract-widget__inner {
-    apply .title abstract-widget__title
-    apply .list list
+    <div class="abstract-widget__inner">
+        apply .title abstract-widget__title
+        apply .list list
 
-    <p>Какую часть перерисовать?</p>
+        <p>Какую часть отрисовать?</p>
 
-    <div class="abstract-widget__button">
-        apply {
-                'label': 'abstract-widget'
-                'type': 'abstract-widget'
+        <div class="abstract-widget__button">
+            apply {
+                    'label': 'abstract-widget'
+                    'type': 'abstract-widget'
+                    'mix': 'abstract-widget__button'
+            } button
+        </div>
+
+        <div class="abstract-widget__button">
+            apply {
+                    'label': 'abstract-widget__inner'
+                    'type': 'abstract-widget__inner'
+                    'mix': 'abstract-widget__button'
+            } button
+        </div>
+
+        <div class="abstract-widget__button">
+            apply {
+                    'label': 'abstract-widget__title'
+                    'type': 'abstract-widget__title'
+                    'mix': 'abstract-widget__button'
+            } button
+        </div>
+
+        <div class="abstract-widget__button">
+            apply {
+                    'label': 'list'
+                    'type': 'list'
+                    'mix': 'abstract-widget__button'
+            } button
+        </div>
+
+        <div class="abstract-widget__button">
+            apply {
+                'label': 'list__item'
+                'type': 'list__item'
                 'mix': 'abstract-widget__button'
-        } button
-    </div>
+            } button
+        </div>
 
-    <div class="abstract-widget__button">
-        apply {
-                'label': 'abstract-widget__inner'
-                'type': 'abstract-widget__inner'
-                'mix': 'abstract-widget__button'
-        } button
+        <pre class="abstract-widget__code">
+            "Пример кода будеть здесь"
+        </pre>
     </div>
-
-    <div class="abstract-widget__button">
-        apply {
-                'label': 'abstract-widget__title'
-                'type': 'abstract-widget__title'
-                'mix': 'abstract-widget__button'
-        } button
-    </div>
-
-    <div class="abstract-widget__button">
-        apply {
-                'label': 'list'
-                'type': 'list'
-                'mix': 'abstract-widget__button'
-        } button
-    </div>
-
-    <div class="abstract-widget__button">
-        apply {
-            'label': 'list__item'
-            'type': 'list__item'
-            'mix': 'abstract-widget__button'
-        } button
-    </div>
-
-    <pre class="abstract-widget__code">
-        "Пример кода будеть здесь"
-    </pre>
 }
 
 match .* abstract-widget__title {

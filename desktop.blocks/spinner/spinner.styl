@@ -1,6 +1,42 @@
 .spinner {
+    text-align center
+
     &__item {
         display inline-block
         width 10px
+        height 10px
+        background #79bbff
+        border-radius 100%
+
+        &_position {
+            &_1 {
+                animation flash-1 1.4s -0.32s ease-in-out infinite;
+                animation-fill-mode: both;
+            }
+
+            &_2 {
+                animation flash-1 1.4s -0.16s ease-in-out infinite;
+                animation-fill-mode: both;
+            }
+
+            &_3 {
+                animation flash-1 1.4s 0s ease-in-out infinite;
+                animation-fill-mode: both;
+            }
+        }
     }
+}
+
+@keyframes flash-1 {
+  0%, 80%, 100% {
+      transform scale(1)
+  }
+
+  50% {
+    opacity 0.5
+  }
+
+  40% {
+    transform translate(0, -10px)
+  }
 }
