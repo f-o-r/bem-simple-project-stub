@@ -15,9 +15,6 @@ module.exports = function(config) {
             new (require('enb/techs/levels'))({ levels: getLevels(config) }),
             new (require('enb/techs/files'))(),
             new (require('enb/techs/js'))(),
-            new (require('./techs/yate.js'))({
-                'commonYateObjPath': commonYateObjPath
-            }),
             new (require('enb/techs/vanilla-js'))(),
             new (require('enb-stylus/techs/css-stylus-with-nib'))({
                 'target': '?.css',
@@ -30,10 +27,16 @@ module.exports = function(config) {
 
         if (nodeConfig.getPath() === commonPath) {
             nodeConfig.addTechs([
-                new (require('enb/techs/deps-old'))()
+                new (require('enb/techs/deps-old'))(),
+                new (require('./techs/yate.js'))({
+                    'isCommon': true
+                })
             ]);
         } else {
             nodeConfig.addTechs([
+                new (require('./techs/yate.js'))({
+                    'commonYateObjPath': commonYateObjPath
+                }),
                 new (require('enb/techs/deps-old'))({ depsTarget: '?.big.deps.js' }),
                 new (require('enb/techs/deps-provider'))({ sourceNodePath: commonPath, depsTarget: commonName+'.deps.js' }),
                 new (require('enb/techs/deps-subtract'))({ subtractWhatTarget: commonName+'.deps.js', subtractFromTarget: '?.big.deps.js', depsTarget: '?.deps.js' })

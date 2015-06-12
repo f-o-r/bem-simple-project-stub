@@ -8,6 +8,8 @@ module.exports = require('enb/lib/build-flow').create()
     .target('target', '?.yate.js')
     .useFileList('yate')
     .defineOption('verbose', false)
+    .defineOption('commonYateObjPath', false)
+    .defineOption('isCommon', false)
     .builder(builder)
     .createTech();
 
@@ -25,25 +27,44 @@ function builder (sourceFiles) {
     var targetDepsYateSource;
     var resultYateFilePath = targetYateFilePath;
     var resultYateJsSource = '';
+    var commonYateObjPath = this._commonYateObjPath;
+    var commonYateObj;
+    var hasCommonYate = commonYateObjPath && fs.existsSync(commonYateObjPath);
 
     if (!sourceFiles.length) {
         return resultYateJsSource;
     }
 
-    // Собираем зависимости в конструкциях Yate
-    targetDepsYateSource = 'module "'+targetName+'"\n';
+    // Готовим Yate к компиляции
+    targetDepsYateSource = 'module "'+targetName+'"\n\n';
+
+    // Импортим общий common
+    if (!this._isCommon && hasCommonYate) {
+        targetDepsYateSource += 'import "common"\n\n';
+    }
+
+    // Собираем зависимости
     targetDepsYateSource += sourceFiles.map(function(file) {
         return 'include "'+file.fullname+'"';
     }).join('\n');
 
     // Сохраняем зависимости в файл на жесткий диск, для последующей компиляции
-    fs.writeFileSync(targetYateFilePath, targetDepsYateSource);
+    fs.writeFileSync(targetYateFilePath, targetDepsYateSource, 'utf-8');
+
+    // Добавляем импорты, аналогично этому: https://github.com/pasaran/yate/blob/master/yate#L53
+    if (hasCommonYate) {
+        yate.modules = {};
+        commonYateObj = JSON.parse(fs.readFileSync(commonYateObjPath));
+        yate.modules[commonYateObj.name] = commonYateObj;
+    } else {
+        this.node.getLogger().logWarningAction('warning', targetName+'.yate.js', 'Не найден или не задан common бандл');
+    }
 
     try {
         resultYateJsSource = 'modules.require("yate", function (yr) {';
         resultYateJsSource += yate.compile(resultYateFilePath).js
         resultYateJsSource += '});';
-    } catch(error) {
+    } catch (error) {
         throw new Error('The technology "yate" throw compile error. '+error);
     }
 
