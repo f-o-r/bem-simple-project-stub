@@ -12,35 +12,45 @@ match .* abstract-widget__inner {
 
     <p>Какую часть перерисовать?</p>
 
-    apply {
-            'label': 'abstract-widget'
-            'type': 'abstract-widget'
-            'mix': 'abstract-widget__button'
-    } button
+    <div class="abstract-widget__button">
+        apply {
+                'label': 'abstract-widget'
+                'type': 'abstract-widget'
+                'mix': 'abstract-widget__button'
+        } button
+    </div>
 
-    apply {
-            'label': 'abstract-widget__inner'
-            'type': 'abstract-widget__inner'
-            'mix': 'abstract-widget__button'
-    } button
+    <div class="abstract-widget__button">
+        apply {
+                'label': 'abstract-widget__inner'
+                'type': 'abstract-widget__inner'
+                'mix': 'abstract-widget__button'
+        } button
+    </div>
 
-    apply {
-            'label': 'abstract-widget__title'
-            'type': 'abstract-widget__title'
-            'mix': 'abstract-widget__button'
-    } button
+    <div class="abstract-widget__button">
+        apply {
+                'label': 'abstract-widget__title'
+                'type': 'abstract-widget__title'
+                'mix': 'abstract-widget__button'
+        } button
+    </div>
 
-    apply {
-            'label': 'list'
-            'type': 'list'
-            'mix': 'abstract-widget__button'
-    } button
+    <div class="abstract-widget__button">
+        apply {
+                'label': 'list'
+                'type': 'list'
+                'mix': 'abstract-widget__button'
+        } button
+    </div>
 
-    apply {
-        'label': 'list__item'
-        'type': 'list__item'
-        'mix': 'abstract-widget__button'
-    } button
+    <div class="abstract-widget__button">
+        apply {
+            'label': 'list__item'
+            'type': 'list__item'
+            'mix': 'abstract-widget__button'
+        } button
+    </div>
 
     <pre class="abstract-widget__code">
         "Пример кода будеть здесь"

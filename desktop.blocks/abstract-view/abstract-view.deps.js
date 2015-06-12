@@ -1,5 +1,6 @@
 ({
     mustDeps : [
-        { block : 'abstract-collection' }
+        { block : 'abstract-collection' },
+        { block : 'spinner' }
     ]
 })
