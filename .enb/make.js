@@ -29,13 +29,17 @@ module.exports = function(config) {
             nodeConfig.addTechs([
                 new (require('enb/techs/deps-old'))(),
                 new (require('./techs/yate.js'))({
-                    'isCommon': true
+                    'isCommon': true,
+                    'prependJs': 'modules.require("yate", function (yr) {',
+                    'appendJs': '});'
                 })
             ]);
         } else {
             nodeConfig.addTechs([
                 new (require('./techs/yate.js'))({
-                    'commonYateObjPath': commonYateObjPath
+                    'commonYateObjPath': commonYateObjPath,
+                    'prependJs': 'modules.require("yate", function (yr) {',
+                    'appendJs': '});'
                 }),
                 new (require('enb/techs/deps-old'))({ depsTarget: '?.big.deps.js' }),
                 new (require('enb/techs/deps-provider'))({ sourceNodePath: commonPath, depsTarget: commonName+'.deps.js' }),
