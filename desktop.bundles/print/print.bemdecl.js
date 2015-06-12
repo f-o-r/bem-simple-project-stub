@@ -1,4 +1,3 @@
 exports.deps = [
-    { "block": "global" },
-    { "block": "page-print" }
+    { block : 'page-print' }
 ];
