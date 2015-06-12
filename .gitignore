@@ -5,3 +5,4 @@ node_modules
 /libs
 desktop.bundles/**/*.*
 !desktop.bundles/**/*.bemdecl.js
+desktop.bundles/**/*.yate.bemdecl.js

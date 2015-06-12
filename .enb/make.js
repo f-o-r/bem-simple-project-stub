@@ -2,9 +2,9 @@ var path = require('path');
 var bundlesPath = 'desktop.bundles';
 var commonName = 'common';
 var commonPath = path.join(bundlesPath, commonName);
-var commonYateObjPath = path.resolve(path.join(bundlesPath, commonName));
-
-commonYateObjPath = [commonYateObjPath, 'common.yate.obj'].join('/');
+var commonYatePath = path.resolve(path.join(bundlesPath, commonName));
+var commonYateObjPath = [commonYatePath, 'common.yate.obj'].join('/');
+var commonYateClientObjPath = [commonYatePath, 'common.client.yate.obj'].join('/');
 
 module.exports = function(config) {
     config.nodes('desktop.bundles/*');
@@ -22,33 +22,60 @@ module.exports = function(config) {
                     'datauri': require('stylus').url()
                 }
             }),
-            new (require('enb/techs/file-merge'))({ sources: [ '?.vanilla.js', '?.js', '?.yate.js' ], target: '?.merge.js' })
+            new (require('enb/techs/file-merge'))({ sources: [ '?.vanilla.js', '?.js', '?.client.yate.js' ], target: '?.merge.js' })
         ]);
 
         if (nodeConfig.getPath() === commonPath) {
             nodeConfig.addTechs([
                 new (require('enb/techs/deps-old'))(),
+
+                // Сборка всех Yate шаблонов
                 new (require('./techs/yate.js'))({
-                    'isCommon': true,
-                    'prependJs': 'modules.require("yate", function (yr) {',
-                    'appendJs': '});'
+                    'isCommon': true
+                }),
+
+                // Сборка только клиентских Yate шаблонов
+                new (require('enb/techs/bemdecl-from-deps-by-tech'))({ depsFiles: '?.deps.js', target: '?.yate.bemdecl.js', sourceTech: 'js', destTech: 'yate-client' }),
+                new (require('enb/techs/deps-old'))({ bemdeclTarget: '?.yate.bemdecl.js', depsTarget: '?.yate.deps.js' }),
+                new (require('enb/techs/files'))({filesTarget: '?.yate-client.files', dirsTarget: '?.yate-client.dirs', depsTarget: '?.yate.deps.js'}),
+                new (require('./techs/yate.js'))({
+                    isCommon: true,
+                    target: '?.client.yate.js',
+                    targetYate: '?.client',
+                    filesTarget: '?.yate-client.files',
+                    prependJs: 'modules.require("yate", function (yr) {',
+                    appendJs: '});'
                 })
             ]);
         } else {
             nodeConfig.addTechs([
-                new (require('./techs/yate.js'))({
-                    'commonYateObjPath': commonYateObjPath,
-                    'prependJs': 'modules.require("yate", function (yr) {',
-                    'appendJs': '});'
-                }),
+                // Вычитание common-бандл из page-бандл
                 new (require('enb/techs/deps-old'))({ depsTarget: '?.big.deps.js' }),
                 new (require('enb/techs/deps-provider'))({ sourceNodePath: commonPath, depsTarget: commonName+'.deps.js' }),
-                new (require('enb/techs/deps-subtract'))({ subtractWhatTarget: commonName+'.deps.js', subtractFromTarget: '?.big.deps.js', depsTarget: '?.deps.js' })
+                new (require('enb/techs/deps-subtract'))({ subtractWhatTarget: commonName+'.deps.js', subtractFromTarget: '?.big.deps.js', depsTarget: '?.deps.js' }),
+
+                // Сборка всех Yate шаблонов + импорт common
+                new (require('./techs/yate.js'))({
+                    'commonYateObjPath': commonYateObjPath
+                }),
+
+                // Сборка только клиентских Yate шаблонов + импорт клиентского common
+                new (require('enb/techs/bemdecl-from-deps-by-tech'))({ depsFiles: '?.deps.js', target: '?.yate.bemdecl.js', sourceTech: 'js', destTech: 'yate-client' }),
+                new (require('enb/techs/deps-old'))({ bemdeclTarget: '?.yate.bemdecl.js', depsTarget: '?.yate.deps.js' }),
+                new (require('enb/techs/files'))({filesTarget: '?.yate-client.files', dirsTarget: '?.yate-client.dirs', depsTarget: '?.yate.deps.js'}),
+                new (require('./techs/yate.js'))({
+                    target: '?.client.yate.js',
+                    targetYate: '?.client',
+                    filesTarget: '?.yate-client.files',
+                    commonYateObjPath: commonYateClientObjPath,
+                    prependJs: 'modules.require("yate", function (yr) {',
+                    appendJs: '});'
+                })
             ]);
         }
 
         nodeConfig.addTargets([
-            '?.vanilla.js', '?.js', '?.merge.js', '_?.js', '?.css', '_?.css', '?.yate.js'
+            '?.vanilla.js', '?.js', '?.merge.js', '_?.js', '?.css', '_?.css', '?.yate.js', '?.client.yate.js'
         ]);
     });
 

@@ -1,14 +1,7 @@
 module "list"
 
 match .* list {
-    apply .title list__title
     <ul>
         apply .elements list__item
     </ul>
-}
-
-match .* list__title {
-    <b>
-        .
-    </b>
 }

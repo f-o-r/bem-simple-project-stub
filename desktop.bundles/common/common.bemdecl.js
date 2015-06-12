@@ -6,5 +6,6 @@ exports.deps = [
     { "block": "app" },
     { "block": "logo" },
     { "block": "content" },
-    { "block": "button" }
+    { "block": "button" },
+    { "block": "abstract-view" }
 ];

@@ -8,16 +8,13 @@ modules.define('abstract-widget', ['i-bem__dom', 'app', 'yate'], function (provi
                         var block = this;
 
                         this.titleData = 'Заголовок '+rand;
-                        this.listData = {'title': 'List '+rand, 'elements': [1+rand, 2+rand, 3+rand, 4+rand, 5+rand]};
+                        this.listData = {'elements': [1+rand, 2+rand, 3+rand, 4+rand, 5+rand]};
                         this.listItemData = 'alone listItem';
                         this.widgetData = {'title': this.titleData, 'list': this.listData};
                         this.collection = app.getData('abstractCollection');
 
                         this.listeners();
-
-                        setTimeout(function () {
-                            block.drawContent();
-                        }, 2000);
+                        block.drawContent();
                     }
                 }
             },

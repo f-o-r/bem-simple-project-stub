@@ -16,21 +16,22 @@ function builder (sourceFiles) {
     node = this.node;
 
     this._targetName = node.unmaskTargetName('?');
+    this._targetFileName = node.unmaskTargetName(this._targetYate);
     this._targetPath = node.resolvePath('');
-    this._targetYateFilePath = this._targetPath + this._targetName + '.' + YATE_EXTENSION;
+    this._targetYateFilePath = this._targetPath + this._targetFileName + '.' + YATE_EXTENSION;
     this._sourceFiles = sourceFiles;
 
     if (!sourceFiles.length) {
         return '';
     }
 
-    this.prepareYateTemplate();
+    this.prepareTemplate();
     this.importCommon();
 
     return this.compile();
 }
 
-methods.prepareYateTemplate = function () {
+methods.prepareTemplate = function () {
     var targetDepsYateSource = 'module "'+this._targetName+'"\n\n';
 
     // Импортим общий common
@@ -61,7 +62,7 @@ methods.importCommon = function () {
         commonYateObj = JSON.parse(fs.readFileSync(this._commonYateObjPath));
         yate.modules[commonYateObj.name] = commonYateObj;
     } else {
-        this.node.getLogger().logWarningAction('warning', targetName+'.yate.js', 'Не найден или не задан common бандл');
+        this.node.getLogger().logWarningAction('warning', this._targetName+'.yate.js', 'Не найден или не задан common бандл: ' + this._commonYateObjPath);
     }
 };
 
@@ -84,6 +85,7 @@ module.exports = require('enb/lib/build-flow').create()
     .target('target', '?.yate.js')
     .useFileList('yate')
     .defineOption('verbose', false)
+    .defineOption('targetYate', '?')
     .defineOption('commonYateObjPath', false)
     .defineOption('isCommon', false)
     .defineOption('prependJs', '')

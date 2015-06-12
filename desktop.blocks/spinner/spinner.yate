@@ -1,0 +1,5 @@
+module "spinner"
+
+match .* spinner {
+    "SPINNER"
+}
