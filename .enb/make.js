@@ -45,7 +45,7 @@ module.exports = function(config) {
                 }),
 
                 // Сборка только клиентских Yate шаблонов + импорт клиентского common
-                new (require('enb/techs/bemdecl-from-deps-by-tech'))({ depsFiles: '?.deps.js', target: '?.yate.bemdecl.js', sourceTech: 'js', destTech: 'yate-client' }),
+                new (require('enb/techs/bemdecl-from-deps-by-tech'))({ depsFiles: '?.big.deps.js', target: '?.yate.bemdecl.js', sourceTech: 'js', destTech: 'yate-client' }),
                 new (require('enb/techs/deps-old'))({ bemdeclTarget: '?.yate.bemdecl.js', depsTarget: '?.big.yate.deps.js' }),
                 new (require('enb/techs/deps-provider'))({ sourceNodePath: commonPath, sourceTarget: commonName+'.yate.deps.js', depsTarget: commonName+'.yate.deps.js' }),
                 new (require('enb/techs/deps-subtract'))({ subtractWhatTarget: commonName+'.yate.deps.js', subtractFromTarget: '?.big.yate.deps.js', depsTarget: '?.yate.deps.js' }),
