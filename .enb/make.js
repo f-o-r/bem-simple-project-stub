@@ -35,100 +35,7 @@ var levels = [
 
 module.exports = function(config) {
     config.nodes(bundlesPath + '/*', function(nodeConfig) {
-
-        if (nodeConfig.getPath() === commonPath) {
-            nodeConfig.addTechs([
-                //[enbBemTechs.depsOld],
-
-                // Сборка всех Yate шаблонов
-                [techs.yateTech,{
-                    'isCommon': true
-                }],
-
-                // Сборка только клиентских Yate шаблонов
-                [enbBemTechs.depsByTechToBemdecl, {
-                    sourceTech: 'js',
-                    destTech: 'yate-client',
-                    filesTarget: '?.deps.js',
-                    target: '?.yate.bemdecl.js'
-                }],
-                [enbBemTechs.depsOld, {
-                    bemdeclFile: '?.yate.bemdecl.js',
-                    target: '?.yate.deps.js'
-                }],
-                [enbBemTechs.files, {
-                    filesTarget: '?.yate-client.files',
-                    dirsTarget: '?.yate-client.dirs',
-                    depsFile: '?.yate.deps.js'
-                }],
-
-                [techs.yateTech, {
-                    isCommon: true,
-                    target: '?.client.yate.js',
-                    targetYate: '?.client',
-                    filesTarget: '?.yate-client.files',
-                    prependJs: 'modules.require("yate", function (yr) {',
-                    appendJs: '});'
-                }]
-            ]);
-        } else {
-            nodeConfig.addTechs([
-                // Вычитание common-бандл из page-бандл
-                //[enbBemTechs.depsOld, {
-                //    depsFile: '?.deps.js'
-                //}],
-                [enbBemTechs.provideDeps, {
-                    node: commonPath,
-                    target: commonName +'.deps.js'
-                }],
-                //[enbBemTechs.subtractDeps, {
-                //    from: '?.big.deps.js',
-                //    what: commonName +'.deps.js',
-                //    target: '?.deps.js'
-                //}],
-
-                // Сборка всех Yate шаблонов + импорт common
-                [techs.yateTech,{
-                    'commonYateObjPath': commonYateObjPath
-                }],
-
-
-                // Сборка только клиентских Yate шаблонов + импорт клиентского common
-                [enbBemTechs.depsByTechToBemdecl, {
-                    sourceTech: 'js',
-                    destTech: 'yate-client',
-                    filesTarget: '?.deps.js',
-                    target: '?.yate.bemdecl.js'
-                }],
-                [enbBemTechs.depsOld, {
-                    bemdeclFile: '?.yate.bemdecl.js',
-                    target: '?.yate.deps.js'
-                }],
-                [enbBemTechs.provideDeps, {
-                    node: commonPath,
-                    target: commonName +'.yate.deps.js',
-                    source: commonName +'.yate.deps.js'
-                }],
-                //[enbBemTechs.subtractDeps, {
-                //    from: '?.big.yate.deps.js',
-                //    what: commonName +'.yate.deps.js',
-                //    target: '?.yate.deps.js'
-                //}],
-                [enbBemTechs.files, {
-                    filesTarget: '?.yate-client.files',
-                    dirsTarget: '?.yate-client.dirs',
-                    depsFile: '?.yate.deps.js'
-                }],
-                [techs.yateTech, {
-                    target: '?.client.yate.js',
-                    targetYate: '?.client',
-                    filesTarget: '?.yate-client.files',
-                    commonYateObjPath: commonYateClientObjPath,
-                    prependJs: 'modules.require("yate", function (yr) {',
-                    appendJs: '});'
-                }]
-            ]);
-        }
+        var isCommonBundle = (nodeConfig.getPath() === commonPath);
 
         nodeConfig.addTechs([
             [techs.fileProvider, {
@@ -137,9 +44,64 @@ module.exports = function(config) {
             [enbBemTechs.levels, {
                 levels: levels
             }],
-            [enbBemTechs.deps],
+            [enbBemTechs.deps, {
+                target: (isCommonBundle) ? '?.deps.js' : '?.big.deps.js'
+            }],
+
+            [enbBemTechs.depsByTechToBemdecl, {
+                sourceTech: 'js',
+                destTech: 'yate-client',
+                target: '?.yate.bemdecl.js'
+            }],
+            [enbBemTechs.depsOld, {
+                bemdeclFile: '?.yate.bemdecl.js',
+                target: (isCommonBundle) ? '?.yate.deps.js' : '?.yate.big.deps.js'
+            }]
+        ]);
+
+        if (!isCommonBundle) {
+            nodeConfig.addTechs([
+                [enbBemTechs.provideDeps, {
+                    node: commonPath,
+                    target: commonName +'.deps.js'
+                }],
+                [enbBemTechs.subtractDeps, {
+                    from: '?.big.deps.js',
+                    what: commonName +'.deps.js',
+                    target: '?.deps.js'
+                }],
+
+                [enbBemTechs.provideDeps, {
+                    node: commonPath,
+                    target: commonName +'.yate.deps.js'
+                }],
+                [enbBemTechs.subtractDeps, {
+                    from: '?.yate.big.deps.js',
+                    what: commonName +'.yate.deps.js',
+                    target: '?.yate.deps.js'
+                }]
+            ])
+        }
+
+        nodeConfig.addTechs([
+            [enbBemTechs.files],
+            [techs.yateTech,{
+                isCommon: isCommonBundle,
+                'commonYateObjPath': commonYateObjPath
+            }],
             [enbBemTechs.files, {
-                depsFile: '?.deps.js'
+                filesTarget: '?.yate-client.files',
+                dirsTarget: '?.yate-client.dirs',
+                depsFile: '?.yate.deps.js'
+            }],
+            [techs.yateTech, {
+                isCommon: isCommonBundle,
+                target: '?.client.yate.js',
+                targetYate: '?.client',
+                filesTarget: '?.yate-client.files',
+                commonYateObjPath: commonYateClientObjPath,
+                prependJs: 'modules.require("yate", function (yr) {',
+                appendJs: '});'
             }],
             [techs.js],
             [techs.vanillaJs],
