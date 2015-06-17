@@ -1,3 +1,3 @@
-exports.deps = [
-    { block : 'page-libs' }
+exports.blocks = [
+    {name: 'page-libs'}
 ];
