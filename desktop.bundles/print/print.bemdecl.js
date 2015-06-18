@@ -1,3 +1,3 @@
-exports.deps = [
-    { block : 'page-print' }
+exports.blocks = [
+    {name: 'page-print'}
 ];
