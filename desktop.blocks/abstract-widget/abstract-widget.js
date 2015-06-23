@@ -42,7 +42,7 @@ modules.define('abstract-widget', ['i-bem__dom', 'app', 'yate'], function (provi
             },
 
             renderTitle: function () {
-                return yate.render('index', this.titleData, 'abstract-widget__title');
+                return yate.render('index', this.titleData, 'abstract-widget__title', null, 'title');
             },
 
             renderList: function () {

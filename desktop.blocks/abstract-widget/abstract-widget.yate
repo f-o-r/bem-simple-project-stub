@@ -59,6 +59,6 @@ match .* abstract-widget__inner {
     </div>
 }
 
-match .* abstract-widget__title {
+match .title abstract-widget__title {
     <div class="abstract-widget__title">{ i18n(.) }</div>
 }
