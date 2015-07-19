@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BEM Simple Project Stub</title>
+    <link rel="stylesheet" href="desktop.bundles/common/_common.css" />
+    <link rel="stylesheet" href="desktop.bundles/checkout/_checkout.css" />
+    <script src="/desktop.bundles/libs/_libs.js"></script>
+</head>
+<body class="app app__dom i-bem" data-bem='{"app__dom": {}}'>
+    <div class="content">
+        <h1>BEM Simple Project Stub</h1>
+        <div class="abstract-widget i-bem" data-bem='{"abstract-widget": {}}'>
+            <div class="spinner" data-bem='{"spinner": {}}'>
+                <div class="spinner__item spinner__item_position_1"></div>
+                <div class="spinner__item spinner__item_position_2"></div>
+                <div class="spinner__item spinner__item_position_3"></div>
+            </div>
+        </div>
+        <div class="abstract-view i-bem" data-bem='{"abstract-view": {}}'>
+            <div class="spinner" data-bem='{"spinner": {}}'>
+                <div class="spinner__item spinner__item_position_1"></div>
+                <div class="spinner__item spinner__item_position_2"></div>
+                <div class="spinner__item spinner__item_position_3"></div>
+            </div>
+        </div>
+    </div>
+    <script src="/desktop.bundles/common/_common.js"></script>
+    <script src="/desktop.bundles/checkout/_checkout.js"></script>
+    <script>
+        modules.require(['app', 'AbstractCollection'], function (app, AbstractCollection) {
+            var abstractCollection = new AbstractCollection([
+                {'name': 'Вентиляция', 'type': 'ventilation', 'order': 0},
+                {'name': 'Ремонтно-отделочные работы', 'type': 'fix', 'order': 1},
+                {'name': 'Сантехника', 'type': 'sanitary-engineering', 'order': 2},
+                {'name': 'Сборка мебели', 'type': 'furniture', 'order': 3},
+                {'name': 'Электромонтаж', 'type': 'electro', 'order': 4}
+            ]);
+
+            app.setData('abstractCollection', abstractCollection);
+        });
+    </script>
+</body>
+</html>

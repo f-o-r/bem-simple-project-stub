@@ -1,0 +1,32 @@
+.abstract-widget {
+    border 1px solid #5972a7
+    padding 20px
+    margin 10px 0
+
+    &_content_hide {
+        .abstract-widget__inner {
+            opacity 0;
+        }
+    }
+
+    &__inner {
+        opacity 1;
+        transition: opacity 1s ease-out;
+    }
+
+    &__title {
+        font-size 24px
+        margin-bottom 15px
+    }
+
+    &__code {
+        font-size 13px
+        padding 20px
+        border 1px dashed #7a8eb9
+    }
+
+    &__button {
+        display inline-block
+        margin-right 3px
+    }
+}

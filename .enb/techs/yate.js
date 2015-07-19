@@ -32,7 +32,8 @@ function builder (sourceFiles) {
 }
 
 methods.prepareTemplate = function () {
-    var targetDepsYateSource = 'module "'+this._targetName+'"\n\n';
+    var moduleName = (this._isCommon || this._moduleNameByBundle) ? this._targetName : 'page';
+    var targetDepsYateSource = 'module "'+moduleName+'"\n\n';
 
     // Импортим общий common
     if (!this._isCommon && this._commonYateObjPath && fs.existsSync(this._commonYateObjPath)) {
