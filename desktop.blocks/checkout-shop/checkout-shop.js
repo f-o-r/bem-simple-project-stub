@@ -1,34 +1,56 @@
-modules.define('w-checkout__shop', ['Backbone', 'yate'], function (provide, Backbone, yate) {
-    provide(Backbone.View.extend({
+modules.define(
+    'checkout-shop',
+    ['Backbone', 'yate', 'checkout-shop__delivery', 'checkout-shop__offers', 'checkout-shop__payment', 'checkout-shop__total'],
+    function (provide, Backbone, yate, deliveryView, offersView, paymentView, totalView) {
+
+        provide(Backbone.View.extend({
 
         events: {
-            'click .w-checkout__shop-delete': function (e) {
+            'click .checkout-shop-delete': function (e) {
                 this.model.destroy();
                 e.preventDefault();
             },
 
-            'click .w-checkout__shop-offer-delete': function (e) {
+            'click .checkout-shop-offer-delete': function (e) {
                 this.model.removeOffer($(e.currentTarget).data('offer-id'));
                 e.preventDefault();
             },
 
-            'click .w-checkout__shop-pay': function (e) {
+            'click .checkout-shop-pay': function (e) {
                 this.model.checkout();
                 e.preventDefault();
             }
         },
 
         initialize: function (options) {
-            var view = this;
-
             this.$container = $(options.container);
+
+            this.render();
+            this.subViewInit();
+            this.setListeners();
+        },
+
+        subViewInit: function () {
+            var $el = this.$el;
+            var model = this.model;
+
+            this.$container.append($el);
+            this.$delivery = $el.find('.checkout-shop__delivery');
+            this.$offers = $el.find('.checkout-shop__offers');
+            this.$payment = $el.find('.checkout-shop__payment');
+            this.$total = $el.find('.checkout-shop__total');
+
+            new deliveryView({model: model, container: this.$delivery});
+            new offersView({model: model, container: this.$offers});
+            new paymentView({model: model, container: this.$payment});
+            new totalView({model: model, container: this.$total});
+        },
+
+        setListeners: function () {
+            var view = this;
 
             this.model.on('destroy', function () {
                 view.destroy();
-            });
-
-            this.model.on('change:offers', function (model, offer) {
-                view.render();
             });
 
             this.model.on('remove:offers', function (model, offer) {
@@ -39,10 +61,6 @@ modules.define('w-checkout__shop', ['Backbone', 'yate'], function (provide, Back
 
                 model.destroy();
             });
-
-            this.render();
-            this.$container.append(this.$el);
-
         },
 
         destroy: function () {
@@ -50,16 +68,11 @@ modules.define('w-checkout__shop', ['Backbone', 'yate'], function (provide, Back
         },
 
         render: function () {
-            var shopData = this.model.toJSON();
-            shopData.totalPrice = this.model.totalPrice();
-
-            //console.log(shopData);
-
-            this.$el.html(this.template(shopData));
+            this.$el.html(this.template(this.model.toJSON()));
         },
 
         template: function (data) {
-            return yate.render('page', data, 'w-checkout__shop', null, null);
+            return yate.render('page', data, 'checkout-shop', null, null);
         }
     }));
 });

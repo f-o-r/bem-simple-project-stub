@@ -1,7 +1,7 @@
 modules.define(
     'w-checkout',
-    ['i-bem__dom', 'app', 'yate', 'underscore', 'Shops', 'Shop', 'w-checkout__shop'],
-    function (provide, BEMDOM, app, yate, _, Shops, Shop, wCheckoutShop) {
+    ['i-bem__dom', 'app', 'yate', 'underscore', 'Shops', 'Shop', 'checkout-shop'],
+    function (provide, BEMDOM, app, yate, _, Shops, Shop, checkoutShop) {
     provide(BEMDOM.decl(this.name,
         {
             onSetMod: {
@@ -25,13 +25,21 @@ modules.define(
                         _.each(carts, function (value, key) {
                             shop = new Shop({
                                 shopId: key,
-                                offers: value
+                                offers: value,
+                                delivery: [
+                                    {'title': 'Курьер', 'price': 500, 'code': 'DELIVERY'},
+                                    {'title': 'Самовывоз', 'price': 0, 'code': 'PICKUP'},
+                                    {'title': 'Почта', 'price': 300, selected: true, 'code': 'POST'}
+                                ],
+                                payment: [
+                                    {'title': 'Оплата на Маркете', code: 'YANDEX'},
+                                    {'title': 'Наличными', code: 'CASH', selected: true}
+                                ]
                             });
 
-                            console.log(shop.url());
                             shops.add(shop);
 
-                            new wCheckoutShop({
+                            new checkoutShop({
                                 model: shop,
                                 container: block.shops
                             });
@@ -48,35 +56,6 @@ modules.define(
 
             draw: function () {
                 BEMDOM.update(this.domElem, this.render());
-            }
-        },
-        {
-            live : function() {
-                this.liveBindTo('button', 'click', function(e) {
-                    var result;
-
-                    switch ($(e.target).data('type')) {
-                        case 'abstract-widget':
-                            result = this.render();
-                        break;
-                        case 'abstract-widget__inner':
-                            result = this.renderContent();
-                        break;
-                        case 'abstract-widget__title':
-                            result = this.renderTitle();
-                        break;
-                        case 'list':
-                            result = this.renderList();
-                        break;
-                        case 'list__item':
-                            result = this.renderListItem();
-                        break;
-                    }
-
-                    this.findElem('code').text(result);
-                });
-
-                return false; // если инициализация блока не может быть отложена
             }
         }));
 });

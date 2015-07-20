@@ -1,0 +1,16 @@
+module "checkout-shop__delivery"
+
+match / checkout-shop__delivery {
+    <select>
+        apply .delivery checkout-shop__delivery-item
+    </select>
+}
+
+match .delivery checkout-shop__delivery-item {
+    <option value="{ .code }">
+        if (.selected) {
+            @selected="selected"
+        }
+        "{ .title } – { .price } руб."
+    </option>
+}

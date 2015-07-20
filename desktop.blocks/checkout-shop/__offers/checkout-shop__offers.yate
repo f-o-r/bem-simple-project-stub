@@ -1,0 +1,15 @@
+module "checkout-shop__offers"
+
+match / checkout-shop__offers {
+    <ul>
+        apply .offers checkout-shop__offers-offer
+    </ul>
+}
+
+match .* checkout-shop__offers-offer {
+    <li>
+        "{ .offerId } – { .title } – { .price }"
+        "&nbsp;&nbsp;"
+        <a href="#delete" data-offer-id="{ .offerId }" class="checkout-shop-offer-delete">Удалить (X)</a>
+    </li>
+}

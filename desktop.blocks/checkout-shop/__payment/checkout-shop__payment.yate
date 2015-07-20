@@ -1,0 +1,16 @@
+module "checkout-shop__payment"
+
+match / checkout-shop__payment {
+    <select>
+        apply .payment checkout-shop__payment-item
+    </select>
+}
+
+match .payment checkout-shop__payment-item {
+    <option>
+        if (.selected) {
+            @selected="selected"
+        }
+        .title
+    </option>
+}
