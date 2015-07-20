@@ -1,0 +1,22 @@
+module "checkout-shop"
+
+match / w-checkout__shop {
+    <div class="w-checkout__shop">
+        <h3>{ .shopId } <a href="#delete" class="w-checkout__shop-delete">Удалить (X)</a></h3>
+        <ul>
+            apply .offers w-checkout__shop-offer
+        </ul>
+        <br />
+        <button class="w-checkout__shop-pay">Оплатить</button>
+        <br />
+        <p>Итого: <b>{ .totalPrice }</b></p>
+    </div>
+}
+
+match .* w-checkout__shop-offer {
+    <li>
+        "{ .offerId } – { .title } – { .price }"
+        "&nbsp;&nbsp;"
+        <a href="#delete" data-offer-id="{ .offerId }" class="w-checkout__shop-offer-delete">Удалить (X)</a>
+    </li>
+}

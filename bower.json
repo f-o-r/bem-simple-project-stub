@@ -9,8 +9,9 @@
     "private": true,
     "dependencies": {
         "jquery": "1.11.1",
-        "backbone": "1.1.2",
-        "underscore": "1.6.0",
+        "backbone": "1.2.1",
+        "backbone-nested-model": "2.0.3",
+        "underscore": "1.8.3",
         "history.js": "1.8.0",
         "jquery-validation": "1.13.1",
         "bem-core": "https://github.com/bem/bem-core.git#v2.5.1",

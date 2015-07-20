@@ -1,56 +1,53 @@
-modules.define('abstract-widget', ['i-bem__dom', 'app', 'yate'], function (provide, BEMDOM, app, yate) {
+modules.define(
+    'w-checkout',
+    ['i-bem__dom', 'app', 'yate', 'underscore', 'Shops', 'Shop', 'w-checkout__shop'],
+    function (provide, BEMDOM, app, yate, _, Shops, Shop, wCheckoutShop) {
     provide(BEMDOM.decl(this.name,
         {
             onSetMod: {
                 'js': {
                     'inited': function () {
-                        var rand = Math.round(Math.random() * 100);
                         var block = this;
+                        var shops = new Shops();
+                        var shop;
 
-                        this.titleData = 'Заголовок '+rand;
-                        this.listData = {'elements': [1+rand, 2+rand, 3+rand, 4+rand, 5+rand]};
-                        this.listItemData = 'alone listItem';
-                        this.widgetData = {'title': this.titleData, 'list': this.listData};
-                        this.collection = app.getData('abstractCollection');
+                        var cart = [
+                            {'offerId': 'id1', 'title': 'Товар #1', 'price': 900.99, 'count': 1, 'shopId': 'shopId1'},
+                            {'offerId': 'id2', 'title': 'Товар #2', 'price': 450, 'count': 1, 'shopId': 'shopId1'},
+                            {'offerId': 'id3', 'title': 'Товар #3', 'price': 100, 'count': 3, 'shopId': 'shopId2'}
+                        ];
 
-                        this.listeners();
-                        block.drawContent();
+                        var carts = _.groupBy(cart, 'shopId');
+
+                        block.draw();
+                        block.shops = block.findElem('shops');
+
+                        _.each(carts, function (value, key) {
+                            shop = new Shop({
+                                shopId: key,
+                                offers: value
+                            });
+
+                            console.log(shop.url());
+                            shops.add(shop);
+
+                            new wCheckoutShop({
+                                model: shop,
+                                container: block.shops
+                            });
+                        });
+
+
                     }
                 }
             },
 
-            listeners: function () {
-                this.collection.on('change', this.render);
-            },
-
-            drawContent: function () {
-                var block = this;
-
-                this.setMod('content', 'hide');
-                BEMDOM.update(this.domElem, this.renderContent());
-                setTimeout(function () {
-                    block.delMod('content');
-                }, 100);
-            },
-
             render: function () {
-                return yate.render('page', this.widgetData, 'abstract-widget');
+                return yate.render('page', {}, 'w-checkout', null, null);
             },
 
-            renderContent: function () {
-                return yate.render('page', this.widgetData, 'abstract-widget__inner');
-            },
-
-            renderTitle: function () {
-                return yate.render('page', this.titleData, 'abstract-widget__title', null, 'title');
-            },
-
-            renderList: function () {
-                return yate.render('page', this.listData, 'list');
-            },
-
-            renderListItem: function () {
-                return yate.render('page', this.listItemData, 'list__item');
+            draw: function () {
+                BEMDOM.update(this.domElem, this.render());
             }
         },
         {

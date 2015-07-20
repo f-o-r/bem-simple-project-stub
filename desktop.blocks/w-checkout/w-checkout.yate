@@ -1,64 +1,7 @@
 module "abstract-widget"
 
-match .* abstract-widget {
-    <div class="abstract-widget">
-        apply . abstract-widget__inner
-    </div>
-}
-
-match .* abstract-widget__inner {
-    <div class="abstract-widget__inner" data-bem='{{ "data": "123"  }}'>
-        apply .title abstract-widget__title
-        apply .list list
-
-        <p>Какую часть отрисовать?</p>
-
-        <div class="abstract-widget__button">
-            apply {
-                    'label': 'abstract-widget'
-                    'type': 'abstract-widget'
-                    'mix': 'abstract-widget__button'
-            } button
-        </div>
-
-        <div class="abstract-widget__button">
-            apply {
-                    'label': 'abstract-widget__inner'
-                    'type': 'abstract-widget__inner'
-                    'mix': 'abstract-widget__button'
-            } button
-        </div>
-
-        <div class="abstract-widget__button">
-            apply {
-                    'label': 'abstract-widget__title'
-                    'type': 'abstract-widget__title'
-                    'mix': 'abstract-widget__button'
-            } button
-        </div>
-
-        <div class="abstract-widget__button">
-            apply {
-                    'label': 'list'
-                    'type': 'list'
-                    'mix': 'abstract-widget__button'
-            } button
-        </div>
-
-        <div class="abstract-widget__button">
-            apply {
-                'label': 'list__item'
-                'type': 'list__item'
-                'mix': 'abstract-widget__button'
-            } button
-        </div>
-
-        <pre class="abstract-widget__code">
-            "Пример кода будеть здесь"
-        </pre>
-    </div>
-}
-
-match .title abstract-widget__title {
-    <div class="abstract-widget__title">{ i18n(.) }</div>
+match / w-checkout {
+    <div class="w-checkout__user">User...</div>
+    <div class="w-checkout__shops"></div>
+    <div class="w-checkout__agreement">Agreement...</div>
 }

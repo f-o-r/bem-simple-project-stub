@@ -8,7 +8,8 @@
     {
         shouldDeps: [
             { block : 'global' },
-            { block : 'layout' }
+            { block : 'layout' },
+            { block : 'w-checkout' }
         ]
     }
 ])

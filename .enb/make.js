@@ -28,6 +28,8 @@ var commonYateClientObjPath = [commonYatePath, 'common.client.yate.obj'].join('/
 var levels = [
     { path: 'libs/bem-core/common.blocks', check: false },
     { path: 'libs/bem-core/desktop.blocks', check: false },
+    'common.models',
+    'common.collections',
     'desktop.pages',
     'desktop.libs',
     'desktop.blocks'
