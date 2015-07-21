@@ -16,7 +16,7 @@ modules.define(
                 e.preventDefault();
             },
 
-            'click .checkout-shop-pay': function (e) {
+            'click .checkout-shop-checkout': function (e) {
                 this.model.checkout();
                 e.preventDefault();
             }

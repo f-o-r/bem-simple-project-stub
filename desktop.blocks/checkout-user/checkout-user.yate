@@ -1,0 +1,15 @@
+module "checkout-user"
+
+match / checkout-user {
+    <div class="checkout-user">
+        <div class="checkout-user__name">
+            <input type="text" name="user-name" placeholder="Ваше имя" value="{ .name }" />
+        </div>
+        <div class="checkout-user__email">
+            <input type="email" name="user-email" placeholder="Ваш email" value="{ .email }" />
+        </div>
+        <div class="checkout-user__phone">
+            <input type="phone" name="user-phone" placeholder="Ваш телефон" value="{ .phone }" />
+        </div>
+    </div>
+}

@@ -1,7 +1,7 @@
 modules.define(
     'w-checkout',
-    ['i-bem__dom', 'app', 'yate', 'underscore', 'Shops', 'Shop', 'checkout-shop'],
-    function (provide, BEMDOM, app, yate, _, Shops, Shop, checkoutShop) {
+    ['i-bem__dom', 'app', 'yate', 'underscore', 'Shops', 'Shop', 'User', 'checkout-shop', 'checkout-user'],
+    function (provide, BEMDOM, app, yate, _, Shops, Shop, User, checkoutShop, checkoutUser) {
     provide(BEMDOM.decl(this.name,
         {
             onSetMod: {
@@ -20,7 +20,21 @@ modules.define(
                         var carts = _.groupBy(cart, 'shopId');
 
                         block.draw();
+                        block.user = block.findElem('user');
                         block.shops = block.findElem('shops');
+                        block.agreement = block.findElem('agreement');
+
+                        // Контроллер и модель пользователя
+                        new checkoutUser({
+                            model: new User({'name': 'Name', 'email': 'test@test.ru', 'phone': '+7-111-222-3344'}),
+                            container: block.user
+                        });
+
+                        // Контроллер и модель соглашений
+//                        new checkoutAgreement({
+//                            model: new Agreement({'name': 'Name', 'email': 'test@test.ru', 'phone': '+7-111-222-3344'}),
+//                            container: block.agreement
+//                        });
 
                         _.each(carts, function (value, key) {
                             shop = new Shop({
@@ -50,8 +64,6 @@ modules.define(
                                 container: block.shops
                             });
                         });
-
-
                     }
                 }
             },

@@ -5,9 +5,13 @@ match / checkout-shop__total {
 
     "Итого: { .totalPrice } руб."
 
-    apply payment.list[.code == 'YANDEX' && payment.selected == 'YANDEX'] checkout-shop__total-pay
+    apply payment.list[.code == payment.selected] checkout-shop__total-checkout
 }
 
-match .* checkout-shop__total-pay {
-    <button class="checkout-shop-pay">Оплатить</button>
+match .* checkout-shop__total-checkout {
+    <button class="checkout-shop-checkout">Оформить</button>
+}
+
+match .*[.code == 'YANDEX'] checkout-shop__total-checkout {
+    <button class="checkout-shop-checkout">Оплатить</button>
 }
