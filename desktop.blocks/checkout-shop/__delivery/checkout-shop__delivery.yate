@@ -2,13 +2,13 @@ module "checkout-shop__delivery"
 
 match / checkout-shop__delivery {
     <select>
-        apply .delivery checkout-shop__delivery-item
+        apply .delivery.list checkout-shop__delivery-item
     </select>
 }
 
-match .delivery checkout-shop__delivery-item {
+match .list checkout-shop__delivery-item {
     <option value="{ .code }">
-        if (.selected) {
+        if (.code == ..selected) {
             @selected="selected"
         }
         "{ .title } – { .price } руб."

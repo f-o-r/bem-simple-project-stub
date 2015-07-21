@@ -26,15 +26,21 @@ modules.define(
                             shop = new Shop({
                                 shopId: key,
                                 offers: value,
-                                delivery: [
-                                    {'title': 'Курьер', 'price': 500, 'code': 'DELIVERY'},
-                                    {'title': 'Самовывоз', 'price': 0, 'code': 'PICKUP'},
-                                    {'title': 'Почта', 'price': 300, selected: true, 'code': 'POST'}
-                                ],
-                                payment: [
-                                    {'title': 'Оплата на Маркете', code: 'YANDEX'},
-                                    {'title': 'Наличными', code: 'CASH', selected: true}
-                                ]
+                                delivery: {
+                                    selected: 'POST',
+                                    list: [
+                                        {'title': 'Курьер', 'price': 500, 'code': 'DELIVERY'},
+                                        {'title': 'Самовывоз', 'price': 0, 'code': 'PICKUP'},
+                                        {'title': 'Почта', 'price': 300, 'code': 'POST'}
+                                    ]
+                                },
+                                payment: {
+                                    selected: 'CASH',
+                                    list: [
+                                        {'title': 'Оплата на Маркете', code: 'YANDEX'},
+                                        {'title': 'Наличными', code: 'CASH'}
+                                    ]
+                                }
                             });
 
                             shops.add(shop);

@@ -1,10 +1,13 @@
 module "checkout-shop__total"
 
 match / checkout-shop__total {
-    "Итого: { .totalPrice }"
-    apply .payment checkout-shop__total-pay
+    payment = .payment
+
+    "Итого: { .totalPrice } руб."
+
+    apply payment.list[.code == 'YANDEX' && payment.selected == 'YANDEX'] checkout-shop__total-pay
 }
 
-match .payment[.code == 'YANDEX' && .selected] checkout-shop__total-pay {
+match .* checkout-shop__total-pay {
     <button class="checkout-shop-pay">Оплатить</button>
 }

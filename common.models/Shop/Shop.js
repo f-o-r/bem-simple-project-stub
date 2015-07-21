@@ -13,24 +13,23 @@ modules.define('Shop', ['Backbone', 'underscore'], function(provide, Backbone, _
             });
         },
 
+        setPayment: function (code) {
+            this.set('payment.selected', code);
+        },
+
         setDelivery: function (code) {
-            var deliveryList = _.clone(this.get('delivery'));
-
-            _.each(deliveryList, function (delivery) {
-                delivery.selected = -1;
-            });
-
-            this.set('delivery', deliveryList);
+            this.set('delivery.selected', code);
         },
 
         totalPrice: function () {
             var total = 0;
+            var delivery = this.get('delivery');
 
             _.each(this.get('offers'), function (offer) {
                 total += offer.price * offer.count;
             });
 
-            total += _.findWhere(this.get('delivery'), { selected: true }).price;
+            total += _.findWhere(delivery.list, { code: delivery.selected }).price;
 
             return total;
         },
